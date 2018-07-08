@@ -4,7 +4,7 @@ Simple React Nepali Calendar component with couple of handy BS-AD coverter funct
 [Click here, for Demo!](https://930z198qq4.codesandbox.io/ "click it to see the component it in action")
 
 <a href="https://930z198qq4.codesandbox.io/" target="_blank">
-![alt screenshot](https://raw.githubusercontent.com/getaasciesh/ReactNepaliCalendar/master/screenshot.png)
+<img src="https://raw.githubusercontent.com/getaasciesh/ReactNepaliCalendar/master/screenshot.png" />
 </a>
 
 
