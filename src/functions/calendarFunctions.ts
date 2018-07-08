@@ -4,13 +4,6 @@ export const toDevanagariDigits = (number: number) => {
   return String(number).split('').map((ed) => calendarData.nepaliNumbers[Number(ed)]).join('');
 }
 
-export const getAdDateByBsDate = (bsYear, bsMonth, bsDate) => {
-  const daysNumFromMinBsYear = getTotalDaysNumFromMinBsYear(bsYear, bsMonth, bsDate);
-  const adDate = new Date(calendarData.minAdDateEqBsDate.ad.year, calendarData.minAdDateEqBsDate.ad.month, calendarData.minAdDateEqBsDate.ad.date - 1);
-  adDate.setDate(adDate.getDate() + daysNumFromMinBsYear);
-  return adDate;
-}
-
 export const getTotalDaysNumFromMinBsYear = (bsYear, bsMonth, bsDate) => {
   if (bsYear < calendarData.minBsYear || bsYear > calendarData.maxBsYear) {
     return null;
@@ -88,7 +81,7 @@ export const getBsMonthDays = (bsYear: number, bsMonth: number) => {
   return null;
 };
 
-export const getBsDateByAdDate = (adYear, adMonth, adDate) => {
+export const convertADtoBS = (adYear, adMonth, adDate) => {
 
   let bsYear = adYear + 57;
   let bsMonth = (adMonth + 9) % 12;
@@ -99,10 +92,10 @@ export const getBsDateByAdDate = (adYear, adMonth, adDate) => {
     bsYear -= 1;
   }
 
-  const bsMonthFirstAdDate = getAdDateByBsDate(bsYear, bsMonth, 1);
+  const bsMonthFirstAdDate = convertBStoAD(bsYear, bsMonth, 1);
   if (adDate >= 1 && adDate < bsMonthFirstAdDate.getDate()) {
     if (adMonth === 4) {
-      const bsYearFirstAdDate = getAdDateByBsDate(bsYear, 1, 1);
+      const bsYearFirstAdDate = convertBStoAD(bsYear, 1, 1);
       if (adDate < bsYearFirstAdDate.getDate()) {
         bsYear -= 1;
       }
@@ -115,4 +108,12 @@ export const getBsDateByAdDate = (adYear, adMonth, adDate) => {
   }
 
   return { bsYear, bsMonth, bsDate };
+}
+
+
+export const convertBStoAD = (bsYear, bsMonth, bsDate) => {
+  const daysNumFromMinBsYear = getTotalDaysNumFromMinBsYear(bsYear, bsMonth, bsDate);
+  const adDate = new Date(calendarData.minAdDateEqBsDate.ad.year, calendarData.minAdDateEqBsDate.ad.month, calendarData.minAdDateEqBsDate.ad.date - 1);
+  adDate.setDate(adDate.getDate() + daysNumFromMinBsYear);
+  return adDate;
 }

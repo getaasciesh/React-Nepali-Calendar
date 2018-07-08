@@ -1,7 +1,8 @@
 import * as React from 'react';
-import styles from './Calendar.css';
+import { styles } from './Calendar.css';
 import calendarData from '../functions/calendarData';
 import * as calFns from '../functions/calendarFunctions';
+import injectSheet from 'react-jss';
 
 enum Switch { month, year }
 
@@ -9,6 +10,7 @@ export interface YearMonthSwitchProps {
   onSwitch: (year: number, month: number) => void
   defaultYear: number;
   defaultMonth: number;
+  classes: any;
 }
 
 export interface YearMonthSwitchState {
@@ -68,21 +70,22 @@ class YearMonthSwitch extends React.Component<YearMonthSwitchProps, YearMonthSwi
   }
 
   render(): JSX.Element {
+    const { classes } = this.props;
     return (
-      <div className={`r-n-cal-switch ${styles.switch}`}>
-        <div className={`r-n-cal-backBtn ${styles.btns} ${styles.backBtn}`} onClick={() => this.goBack()}>{'<'}</div>
-        <div className={`r-n-cal-yearBtn ${styles.btns} ${styles.btns} ${this.state.activeSwitch == Switch.year ? styles.activeSwitch : ''}`}
+      <div className={`r-n-cal-switch ${classes.switch}`}>
+        <div className={`r-n-cal-backBtn ${classes.btns} ${classes.backBtn}`} onClick={() => this.goBack()}>{'<'}</div>
+        <div className={`r-n-cal-yearBtn ${classes.btns} ${classes.btns} ${this.state.activeSwitch == Switch.year ? classes.activeSwitch : ''}`}
           onClick={() => this.setState({ activeSwitch: Switch.year })}>
           {calFns.toDevanagariDigits(this.state.currentYear)}
         </div>
-        <div className={`r-n-cal-monthBtn ${styles.btns} ${styles.btns}  ${this.state.activeSwitch == Switch.month ? styles.activeSwitch : ''}`}
+        <div className={`r-n-cal-monthBtn ${classes.btns} ${classes.btns}  ${this.state.activeSwitch == Switch.month ? classes.activeSwitch : ''}`}
           onClick={() => this.setState({ activeSwitch: Switch.month })}>
           {calendarData.bsMonths[this.state.currentMonth - 1]}
         </div>
-        <div className={`r-n-cal-forwardBtn ${styles.btns} ${styles.forwardBtn}`} onClick={() => this.goForward()}>{'>'}</div>
+        <div className={`r-n-cal-forwardBtn ${classes.btns} ${classes.forwardBtn}`} onClick={() => this.goForward()}>{'>'}</div>
       </div>
     );
   }
 }
 
-export default YearMonthSwitch;
+export default injectSheet(styles)(YearMonthSwitch);

@@ -1,66 +1,72 @@
-const path = require("path");
-const express = require("express");
-
-const { FuseBox, WebIndexPlugin, CSSModules,
+const { FuseBox, QuantumPlugin, WebIndexPlugin, Sparky, CSSModules,
   PostCSSPlugin, CSSResourcePlugin, CSSPlugin } = require("fuse-box");
 
-const { task, context } = require("fuse-box/sparky");
-const tsc = require('typescript');
+let fuse, bundle;
+let isProduction = false;
 
-context(class {
-  getConfig(distFolder) {
-    return FuseBox.init({
-      homeDir: "src",
-      sourceMaps: true,
-      target: 'es6',
-      output: `${distFolder}/$name.js`,
-      plugins: [
-        WebIndexPlugin({ template: "./public/index.html" }),
-        [
-          PostCSSPlugin([require("postcss-import")]),
-          CSSModules(),
-          CSSPlugin()
-        ]
-      ]
-    });
-  }
+// we can change the target when making a seperate bundle
+let target = "browser@es6";
 
-  createBundle(fuse) {
-    const app = fuse.bundle("app/app");
-    app.instructions(" > index.tsx");
-    return app;
-  }
+// bundle name needs to be changed too (as we are making an isolate build and 
+// and we need to bundle the API into it
+let bundleName = "es6";
 
-  createLocalBundle(fuse) {
-    const app = fuse.bundle("app/app")
-      .completed(proc => proc.start)
-      .instructions(" > main.tsx").hmr().watch();
-    return app;
-  }
-});
+let instructions = "> index.ts";
 
-task("dist", async context => {
-  context.isProduction = true;
-  const fuse = context.getConfig('dist');
-  context.createBundle(fuse).completed(() => {
-    require('child_process')
-      .execSync("./node_modules/typescript/bin/tsc", function puts(error, stdout, stderr) {
 
-      });
+
+Sparky.task("config", () => {
+
+  fuse = FuseBox.init({
+    homeDir: "src",
+    globals: { 'default': '*' }, // we need to expore index in our bundles
+    target: target,
+    output: "dist/$name.js",
+    cache: false,
+    tsConfig: [{ target: bundleName }], // override tsConfig
+    plugins: [
+      WebIndexPlugin(),
+      isProduction && QuantumPlugin({
+        containedAPI: true,
+        ensureES5: false,
+        uglify: true,
+        bakeApiIntoBundle: bundleName
+      })
+    ]
   });
+  bundle = fuse.bundle(bundleName).instructions(instructions)
+});
+
+
+Sparky.task("clean", () => {
+  return Sparky.src("dist/").clean("dist/");
+});
+
+Sparky.task("copy-src", () => Sparky.src("./**", { base: './src' }).dest("dist/"));
+Sparky.task("copy-pkg", () => Sparky.src("./package.json").dest("dist/"));
+
+Sparky.task("dev", ["clean"], () => {
+  bundleName = "app";
+  instructions = "> dev.ts"
+});
+
+Sparky.task("dist-es5", async () => {
+  target = "browser@es5"
+  isProduction = true;
+  bundleName = "index"
+  await Sparky.resolve("config")
   await fuse.run();
 });
 
-task("default", async context => {
-  context.isProduction = false;
-  const fuse = context.getConfig('local-dist');
-  fuse.dev({ port: 3000 }, server => {
-    const app = server.httpServer.app;
-    app.use("/app/", express.static(path.resolve("./local-dist/app/")));
-    app.get("*", function (req, res) {
-      res.sendFile(path.join(path.resolve("./local-dist/"), "index.html"));
-    });
-  }); // launch http server
-  context.createLocalBundle(fuse);
-  await fuse.run();
+Sparky.task("dist", ["clean", "copy-src", "copy-pkg", "dist-es5"], () => {
+
+});
+
+
+
+// Development
+Sparky.task("default", ["dev", "config"], () => {
+  fuse.dev();
+  bundle.hmr().watch();
+  fuse.run();
 });

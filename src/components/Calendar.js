@@ -10,7 +10,7 @@ class Calendar extends React.Component {
         const date = props.defaultDate || new Date();
         this.state = {
             activeDate: date,
-            activeBsDate: calF.getBsDateByAdDate(date.getFullYear(), date.getMonth(), date.getDay())
+            activeBsDate: calF.convertADtoBS(date.getFullYear(), date.getMonth(), date.getDay())
         };
     }
     switchViewsYearMonth(year, month) {

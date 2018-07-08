@@ -1,15 +1,16 @@
 
-import styles from './Calendar.css';
-
+import { styles } from './Calendar.css';
 import * as React from 'react';
 import calendarData from '../functions/calendarData';
 import * as calFns from '../functions/calendarFunctions';
+import injectSheet from 'react-jss';
 
 interface MonthViewProps {
   onDayClicked: (date: Date) => void
   viewBsYear: number
   viewBsMonth: number
   defaultActiveDate: Date
+  classes: any
 }
 
 interface MonthViewState {
@@ -21,16 +22,16 @@ class MonthView extends React.Component<MonthViewProps, MonthViewState> {
   public state = { selectedDate: new Date() };
 
   private getDayInfo(date: Date) {
-    const bsDate = calFns.getBsDateByAdDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
+    const bsDate = calFns.convertADtoBS(date.getFullYear(), date.getMonth() + 1, date.getDate());
     return { adDate: new Date(date), ...(bsDate) }
   }
 
   private getDays() {
     let startDay, lastDay;
     const { viewBsMonth, viewBsYear } = this.props;
-    startDay = calFns.getAdDateByBsDate(viewBsYear, viewBsMonth, 1);
+    startDay = calFns.convertBStoAD(viewBsYear, viewBsMonth, 1);
     startDay.setDate(startDay.getDate() - startDay.getDay()); // Sunday, the first day in the view
-    lastDay = calFns.getAdDateByBsDate(viewBsYear, viewBsMonth, calFns.getBsMonthDays(viewBsYear, viewBsMonth));
+    lastDay = calFns.convertBStoAD(viewBsYear, viewBsMonth, calFns.getBsMonthDays(viewBsYear, viewBsMonth));
     lastDay.setDate(lastDay.getDate() + (6 - lastDay.getDay())); // Saturday, the last day in the view
     const days = [];
     while (startDay <= lastDay) {
@@ -52,23 +53,24 @@ class MonthView extends React.Component<MonthViewProps, MonthViewState> {
   }
 
   public render(): JSX.Element {
+    const { classes } = this.props;
     return (
-      <div className={`r-n-cal-month-view ${styles.calendar}`}>
-        <div className={`r-n-cal-weekdays ${styles.weekdays}`}>
+      <div className={`r-n-cal-month-view ${classes.calendar}`}>
+        <div className={`r-n-cal-weekdays ${classes.weekdays}`}>
           {
             calendarData.bsDays.map((day) => (
-              <div key={day} className={styles.weekday}>{day}</div>
+              <div key={day} className={classes.weekday}>{day}</div>
             ))
           }
         </div>
-        <div className={styles.days}>
+        <div className={classes.days}>
           {
             this.getDays().map(({ adDate, bsDate, bsMonth }) => (
               <div
                 className={
-                  `${styles.day} ${bsMonth !== this.props.viewBsMonth ? styles.dayMuted : ''} 
-                  ${this.isSameDate(adDate) ? styles.today : ''} 
-                  ${this.isSameDate(adDate, this.state.selectedDate) ? styles.selectedDay : ''} 
+                  `${classes.day} ${bsMonth !== this.props.viewBsMonth ? classes.dayMuted : ''} 
+                  ${this.isSameDate(adDate) ? classes.today : ''} 
+                  ${this.isSameDate(adDate, this.state.selectedDate) ? classes.selectedDay : ''} 
                   `
                 }
                 key={`${bsDate} ${bsMonth}`}
@@ -83,4 +85,4 @@ class MonthView extends React.Component<MonthViewProps, MonthViewState> {
   }
 }
 
-export default MonthView;
+export default injectSheet(styles)(MonthView);

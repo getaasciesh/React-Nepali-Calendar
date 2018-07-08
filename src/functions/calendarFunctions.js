@@ -4,12 +4,6 @@ const calendarData_1 = require("./calendarData");
 exports.toDevanagariDigits = (number) => {
     return String(number).split('').map((ed) => calendarData_1.default.nepaliNumbers[Number(ed)]).join('');
 };
-exports.getAdDateByBsDate = (bsYear, bsMonth, bsDate) => {
-    const daysNumFromMinBsYear = exports.getTotalDaysNumFromMinBsYear(bsYear, bsMonth, bsDate);
-    const adDate = new Date(calendarData_1.default.minAdDateEqBsDate.ad.year, calendarData_1.default.minAdDateEqBsDate.ad.month, calendarData_1.default.minAdDateEqBsDate.ad.date - 1);
-    adDate.setDate(adDate.getDate() + daysNumFromMinBsYear);
-    return adDate;
-};
 exports.getTotalDaysNumFromMinBsYear = (bsYear, bsMonth, bsDate) => {
     if (bsYear < calendarData_1.default.minBsYear || bsYear > calendarData_1.default.maxBsYear) {
         return null;
@@ -85,7 +79,7 @@ exports.getBsMonthDays = (bsYear, bsMonth) => {
     }
     return null;
 };
-exports.getBsDateByAdDate = (adYear, adMonth, adDate) => {
+exports.convertADtoBS = (adYear, adMonth, adDate) => {
     let bsYear = adYear + 57;
     let bsMonth = (adMonth + 9) % 12;
     bsMonth = bsMonth === 0 ? 12 : bsMonth;
@@ -93,10 +87,10 @@ exports.getBsDateByAdDate = (adYear, adMonth, adDate) => {
     if (adMonth < 4) {
         bsYear -= 1;
     }
-    const bsMonthFirstAdDate = exports.getAdDateByBsDate(bsYear, bsMonth, 1);
+    const bsMonthFirstAdDate = exports.convertBStoAD(bsYear, bsMonth, 1);
     if (adDate >= 1 && adDate < bsMonthFirstAdDate.getDate()) {
         if (adMonth === 4) {
-            const bsYearFirstAdDate = exports.getAdDateByBsDate(bsYear, 1, 1);
+            const bsYearFirstAdDate = exports.convertBStoAD(bsYear, 1, 1);
             if (adDate < bsYearFirstAdDate.getDate()) {
                 bsYear -= 1;
             }
@@ -109,5 +103,11 @@ exports.getBsDateByAdDate = (adYear, adMonth, adDate) => {
         bsDate = adDate - bsMonthFirstAdDate.getDate() + 1;
     }
     return { bsYear, bsMonth, bsDate };
+};
+exports.convertBStoAD = (bsYear, bsMonth, bsDate) => {
+    const daysNumFromMinBsYear = exports.getTotalDaysNumFromMinBsYear(bsYear, bsMonth, bsDate);
+    const adDate = new Date(calendarData_1.default.minAdDateEqBsDate.ad.year, calendarData_1.default.minAdDateEqBsDate.ad.month, calendarData_1.default.minAdDateEqBsDate.ad.date - 1);
+    adDate.setDate(adDate.getDate() + daysNumFromMinBsYear);
+    return adDate;
 };
 //# sourceMappingURL=calendarFunctions.js.map

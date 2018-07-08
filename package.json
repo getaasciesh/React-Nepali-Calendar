@@ -2,7 +2,9 @@
   "name": "react-nepali-calendar",
   "version": "1.0.2",
   "description": "React Component for Nepali BS Calendar",
-  "main": "src/index.js",
+  "ts:main": "index.ts",
+  "types": "index.ts",
+  "main": "index.js",
   "scripts": {
     "test": "jest",
     "dev": "node ./fuse.js",
@@ -17,9 +19,6 @@
     ],
     "transform": {
       "^.+\\.(ts|tsx)$": "ts-jest"
-    },
-    "moduleNameMapper": {
-      "\\.(css|less)$": "identity-obj-proxy"
     },
     "globals": {
       "ts-jest": {
@@ -41,18 +40,15 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "fuse-box": "^3.3.0",
-    "identity-obj-proxy": "^3.0.0",
     "jest": "^23.2.0",
-    "postcss-import": "^11.1.0",
-    "postcss-modules": "^1.1.0",
     "ts-jest": "^23.0.0",
     "typescript": "^2.9.2",
     "uglify-es": "^3.3.9",
-    "uglify-js": "^3.4.3",
-    "node-sass": "^4.9.1"
+    "uglify-js": "^3.4.3"
   },
   "dependencies": {
     "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react-dom": "^16.4.1",
+    "react-jss": "^8.6.1"
   }
 }
