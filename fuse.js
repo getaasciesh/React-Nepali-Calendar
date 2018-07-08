@@ -53,7 +53,7 @@ Sparky.task("dev", ["clean"], () => {
 Sparky.task("dist-es5", async () => {
   target = "browser@es5"
   isProduction = true;
-  bundleName = "index"
+  bundleName = "es"
   await Sparky.resolve("config")
   await fuse.run();
 });

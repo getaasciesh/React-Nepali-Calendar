@@ -1,6 +1,6 @@
 {
   "name": "react-nepali-calendar",
-  "version": "1.0.2",
+  "version": "1.1.1",
   "description": "React Component for Nepali BS Calendar",
   "ts:main": "index.ts",
   "types": "index.ts",
