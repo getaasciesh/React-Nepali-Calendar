@@ -2,9 +2,7 @@
 Simple React Nepali Calendar component with couple of handy BS-AD coverter functions.
 
 
-![alt text](https://raw.githubusercontent.com/getaasciesh/ReactNepaliCalendar/master/screenshot.png)
-
-![alt text](https://raw.githubusercontent.com/getaasciesh/ReactNepaliCalendar/master/screenshot.png)
+![alt screenshot](https://raw.githubusercontent.com/getaasciesh/ReactNepaliCalendar/master/screenshot.png)
 
 ## Installation
 
