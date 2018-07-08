@@ -4,6 +4,8 @@ Simple React Nepali Calendar component with couple of handy BS-AD coverter funct
 
 ![alt text](https://raw.githubusercontent.com/getaasciesh/ReactNepaliCalendar/master/screenshot.png)
 
+![alt text](https://raw.githubusercontent.com/getaasciesh/ReactNepaliCalendar/master/screenshot.png)
+
 ## Installation
 
 ```
