@@ -65,7 +65,7 @@ export const getMonthDaysNumFormMinBsYear = (bsMonth, yearDiff) => {
   return monthDaysFromMinBsYear;
 }
 
-export const getBsMonthDays = (bsYear, bsMonth) => {
+export const getBsMonthDays = (bsYear: number, bsMonth: number) => {
   let yearCount = 0;
   const totalYears = (bsYear + 1) - calendarData.minBsYear;
   const bsMonthData = calendarData.extractedBsMonthData[bsMonth - 1];
@@ -86,7 +86,7 @@ export const getBsMonthDays = (bsYear, bsMonth) => {
   }
 
   return null;
-}
+};
 
 export const getBsDateByAdDate = (adYear, adMonth, adDate) => {
 
@@ -97,15 +97,16 @@ export const getBsDateByAdDate = (adYear, adMonth, adDate) => {
 
   if (adMonth < 4) {
     bsYear -= 1;
-  } else if (adMonth === 4) {
-    const bsYearFirstAdDate = getAdDateByBsDate(bsYear, 1, 1);
-    if (adDate < bsYearFirstAdDate.getDate()) {
-      bsYear -= 1;
-    }
   }
 
   const bsMonthFirstAdDate = getAdDateByBsDate(bsYear, bsMonth, 1);
   if (adDate >= 1 && adDate < bsMonthFirstAdDate.getDate()) {
+    if (adMonth === 4) {
+      const bsYearFirstAdDate = getAdDateByBsDate(bsYear, 1, 1);
+      if (adDate < bsYearFirstAdDate.getDate()) {
+        bsYear -= 1;
+      }
+    }
     bsMonth = (bsMonth !== 1) ? bsMonth - 1 : 12;
     const bsMonthDays = getBsMonthDays(bsYear, bsMonth);
     bsDate = bsMonthDays - (bsMonthFirstAdDate.getDate() - adDate) + 1;
@@ -113,9 +114,5 @@ export const getBsDateByAdDate = (adYear, adMonth, adDate) => {
     bsDate = adDate - bsMonthFirstAdDate.getDate() + 1;
   }
 
-  return {
-    bsYear: bsYear,
-    bsMonth: bsMonth,
-    bsDate: bsDate
-  };
+  return { bsYear, bsMonth, bsDate };
 }

@@ -1,10 +1,12 @@
 {
   "name": "react-nepali-calendar",
-  "version": "0.0.1",
+  "version": "1.0.2",
   "description": "React Component for Nepali BS Calendar",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "dev": "node ./fuse.js",
+    "dist": "node ./fuse.js dist"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "./testSetup.ts",
@@ -16,6 +18,9 @@
     "transform": {
       "^.+\\.(ts|tsx)$": "ts-jest"
     },
+    "moduleNameMapper": {
+      "\\.(css|less)$": "identity-obj-proxy"
+    },
     "globals": {
       "ts-jest": {
         "tsConfigFile": "tsconfig.json"
@@ -25,7 +30,7 @@
       "**/__tests__/*.+(ts|tsx|js)"
     ]
   },
-  "author": "",
+  "author": "Asish Bhattarai",
   "license": "MIT",
   "devDependencies": {
     "@types/enzyme": "^3.1.11",
@@ -36,11 +41,15 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "fuse-box": "^3.3.0",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^23.2.0",
+    "postcss-import": "^11.1.0",
+    "postcss-modules": "^1.1.0",
     "ts-jest": "^23.0.0",
     "typescript": "^2.9.2",
     "uglify-es": "^3.3.9",
-    "uglify-js": "^3.4.3"
+    "uglify-js": "^3.4.3",
+    "node-sass": "^4.9.1"
   },
   "dependencies": {
     "react": "^16.4.1",

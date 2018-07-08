@@ -35,6 +35,8 @@ describe('Calendar functions', () => {
       toEqual({ "bsDate": 26, "bsMonth": 5, "bsYear": 2082 });
     expect(calendarFunctions.getBsDateByAdDate(2028, 3, 13)).
       toEqual({ "bsDate": 30, "bsMonth": 11, "bsYear": 2084 });
+    expect(calendarFunctions.getBsDateByAdDate(2017, 4, 13)).
+      toEqual({ "bsDate": 31, "bsMonth": 12, "bsYear": 2073 });
   });
 
   it('should correctly convert bs date to ad date', () => {
@@ -56,5 +58,7 @@ describe('Calendar functions', () => {
       toEqual(new Date(2026, 9, 2));
     expect(calendarFunctions.getAdDateByBsDate(2087, 8, 18)).
       toEqual(new Date(2030, 11, 4));
+    expect(calendarFunctions.getAdDateByBsDate(2073, 12, 31)).
+      toEqual(new Date(2017, 3, 13));
   });
 })
