@@ -1,5 +1,8 @@
 ## Intro
-Simple React Nepali Calendar component.
+Simple React Nepali Calendar component with couple of handy BS-AD coverter functions.
+
+
+![alt text](https://raw.githubusercontent.com/getaasciesh/ReactNepaliCalendar/master/screenshot.png)
 
 ## Installation
 
@@ -25,6 +28,23 @@ export default class Main extends React.Component {
     );
   }
 }
+```
+
+### Calendar Methods
+#### convert AD To BS: CalendarFunctions.convertADtoBS(adYear, adMonth: 1..12, adDate) 
+```
+import { CalendarFunctions } from 'react-nepali-calendar';
+
+const bsDate = CalendarFunctions.convertADtoBS(2018, 9, 10);
+// bsDate == { "bsDate": 25, "bsMonth": 5, "bsYear": 2075 }
+```
+
+#### convert BS to AD
+```
+import { CalendarFunctions } from 'react-nepali-calendar';
+
+const adDate = CalendarFunctions.convertBStoAD(2076, 2, 29);
+// adDate == new Date(2019, 5, 12)
 ```
 
 ## Testing
