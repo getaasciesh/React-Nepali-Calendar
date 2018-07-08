@@ -1,6 +1,8 @@
 ## Intro
 Simple React Nepali Calendar component.
 
+![alt text](https://raw.githubusercontent.com/getaasciesh/ReactNepaliCalendar/master/screenshot.png)
+
 ## Installation
 
 ```
