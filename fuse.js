@@ -24,8 +24,9 @@ Sparky.task("config", () => {
     output: "dist/$name.js",
     cache: false,
     tsConfig: [{ target: bundleName }], // override tsConfig
+    sourceMaps: true,
     plugins: [
-      WebIndexPlugin(),
+      WebIndexPlugin({ template: './public/index.html' }),
       isProduction && QuantumPlugin({
         containedAPI: true,
         ensureES5: false,
@@ -47,7 +48,7 @@ Sparky.task("copy-pkg", () => Sparky.src("./package.json").dest("dist/"));
 
 Sparky.task("dev", ["clean"], () => {
   bundleName = "app";
-  instructions = "> dev.ts"
+  instructions = "> main.tsx"
 });
 
 Sparky.task("dist-es5", async () => {
@@ -66,7 +67,7 @@ Sparky.task("dist", ["clean", "copy-src", "copy-pkg", "dist-es5"], () => {
 
 // Development
 Sparky.task("default", ["dev", "config"], () => {
-  fuse.dev();
+  fuse.dev({ port: 3003 });
   bundle.hmr().watch();
   fuse.run();
 });

@@ -20,7 +20,7 @@ class Calendar extends React.Component<CalendarProps, CalendarStates> {
     const date = props.defaultDate || new Date();
     this.state = {
       activeDate: date,
-      activeBsDate: calF.convertADtoBS(date.getFullYear(), date.getMonth(), date.getDay())
+      activeBsDate: calF.convertADtoBS(date.getFullYear(), date.getMonth() + 1, date.getDate())
     }
   }
 

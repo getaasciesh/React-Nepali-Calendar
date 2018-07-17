@@ -1,6 +1,6 @@
 {
   "name": "react-nepali-calendar",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "React Component for Nepali BS Calendar",
   "ts:main": "index.ts",
   "types": "index.ts",
@@ -29,6 +29,11 @@
       "**/__tests__/*.+(ts|tsx|js)"
     ]
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getaasciesh/React-Nepali-Calendar"
+  },
+  "homepage": "https://github.com/getaasciesh/React-Nepali-Calendar",
   "author": "Asish Bhattarai",
   "license": "MIT",
   "devDependencies": {

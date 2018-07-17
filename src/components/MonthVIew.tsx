@@ -1,5 +1,5 @@
 
-import { styles } from './Calendar.css';
+import { styles } from './styles';
 import * as React from 'react';
 import calendarData from '../functions/calendarData';
 import * as calFns from '../functions/calendarFunctions';
@@ -19,7 +19,12 @@ interface MonthViewState {
 
 class MonthView extends React.Component<MonthViewProps, MonthViewState> {
 
-  public state = { selectedDate: new Date() };
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedDate: props.defaultActiveDate || new Date()
+    }
+  }
 
   private getDayInfo(date: Date) {
     const bsDate = calFns.convertADtoBS(date.getFullYear(), date.getMonth() + 1, date.getDate());

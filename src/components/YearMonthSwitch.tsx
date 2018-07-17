@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styles } from './Calendar.css';
+import { styles } from './styles';
 import calendarData from '../functions/calendarData';
 import * as calFns from '../functions/calendarFunctions';
 import injectSheet from 'react-jss';
