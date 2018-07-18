@@ -1,1 +1,0 @@
-{"version":3,"file":"testSetup.js","sourceRoot":"","sources":["testSetup.ts"],"names":[],"mappings":";;AAAA,mCAAmC;AACnC,mDAAmD;AAEnD,kBAAS,CAAC,EAAE,OAAO,EAAE,IAAI,OAAO,EAAE,EAAE,CAAC,CAAC","sourcesContent":["import { configure } from 'enzyme';\nimport * as Adapter from 'enzyme-adapter-react-16';\n\nconfigure({ adapter: new Adapter() });"]}
