@@ -1,7 +1,7 @@
 ## Intro
 Simple React Nepali BS Calendar component with couple of handy BS-AD coverter functions.
 
-[Click here, for Demo!](https://38p7n23ykp.codesandbox.io/ "click it to see the component it in action")
+[Click here for demo implementation!](https://codesandbox.io/s/38p7n23ykp "click it to see the component it in action")
 
 <a href="https://38p7n23ykp.codesandbox.io/" target="_blank">
 <img src="https://raw.githubusercontent.com/getaasciesh/ReactNepaliCalendar/master/screenshot.png" />
