@@ -6,6 +6,7 @@ import YearMonthSwitch from './YearMonthSwitch';
 export interface CalendarProps {
   defaultDate?: Date
   onChange?: (date: Date) => void;
+  className?: string;
 }
 
 export interface CalendarStates {
@@ -33,7 +34,7 @@ class Calendar extends React.Component<CalendarProps, CalendarStates> {
   public render(): JSX.Element {
     const { bsYear, bsMonth } = this.state.activeBsDate;
     return (
-      <div>
+      <div className={`${this.props.className || ''}`}>
         <YearMonthSwitch
           defaultMonth={bsMonth}
           defaultYear={bsYear} onSwitch={(year, month) => this.switchViewsYearMonth(year, month)} />

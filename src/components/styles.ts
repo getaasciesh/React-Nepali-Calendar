@@ -18,9 +18,6 @@ export const styles = {
   },
 
   day: {
-    '& :nth(1)': {
-      color: 'rgb(223, 84, 84)',
-    },
     width: '36px',
     float: 'left',
     border: '2px solid white',
@@ -28,6 +25,10 @@ export const styles = {
     'text-align': 'center',
     cursor: 'pointer',
     'user-select': 'none',
+  },
+
+  weekend: {
+    color: 'red'
   },
 
   dayMuted: {

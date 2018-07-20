@@ -68,12 +68,14 @@ class MonthView extends React.Component<MonthViewProps, MonthViewState> {
             ))
           }
         </div>
-        <div className={classes.days}>
+        <div className={`r-n-cal-days ${classes.days}`}>
           {
-            this.getDays().map(({ adDate, bsDate, bsMonth }) => (
+            this.getDays().map(({ adDate, bsDate, bsMonth }, i) => (
               <div
                 className={
-                  `${classes.day} ${bsMonth !== this.props.viewBsMonth ? classes.dayMuted : ''} 
+                  `r-n-cal-day 
+                  ${i % 7 == 6 ? classes.weekend : ''}
+                  ${classes.day} ${bsMonth !== this.props.viewBsMonth ? classes.dayMuted : ''} 
                   ${this.isSameDate(adDate) ? classes.today : ''} 
                   ${this.isSameDate(adDate, this.state.selectedDate) ? classes.selectedDay : ''} 
                   `
