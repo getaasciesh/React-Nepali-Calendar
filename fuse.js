@@ -44,6 +44,7 @@ Sparky.task("clean", () => {
 });
 
 Sparky.task("copy-src", () => Sparky.src("./**", { base: './src' }).dest("dist/"));
+Sparky.task("copy-readme", () => Sparky.src("./Readme.md").dest("dist/"))
 Sparky.task("copy-pkg", () => Sparky.src("./package.json").dest("dist/"));
 
 Sparky.task("dev", ["clean"], () => {
@@ -59,7 +60,7 @@ Sparky.task("dist-es5", async () => {
   await fuse.run();
 });
 
-Sparky.task("dist", ["clean", "copy-src", "copy-pkg", "dist-es5"], () => {
+Sparky.task("dist", ["clean", "copy-src", "copy-pkg", "dist-es5", "copy-readme"], () => {
 
 });
 
