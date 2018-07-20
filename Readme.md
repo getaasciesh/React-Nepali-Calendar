@@ -1,9 +1,9 @@
 ## Intro
 Simple React Nepali BS Calendar component with couple of handy BS-AD coverter functions.
 
-[Click here for demo implementation!](https://codesandbox.io/s/38p7n23ykp "click it to see the component it in action")
+[Click here for demo implementation!](https://codesandbox.io/s/l2y030r8zm "click it to see the component it in action")
 
-<a href="https://38p7n23ykp.codesandbox.io/" target="_blank">
+<a href="https://l2y030r8zm.codesandbox.io/" target="_blank">
 <img src="https://raw.githubusercontent.com/getaasciesh/ReactNepaliCalendar/master/screenshot.png" />
 </a>
 
@@ -35,6 +35,7 @@ export default class Main extends React.Component {
 ##### Props for Calendar component
 * defaultDate?: Date //optional. default selected date on calendar. applied only once at component mount
 * onChange?: (date: Date) => void; // optional. fired when a date is selected in the calendar.
+* className?: string // className for the wrapper div
 
 ### Calendar Methods
 #### convert AD To BS: CalendarFunctions.convertADtoBS(adYear, adMonth: 1..12, adDate) 
